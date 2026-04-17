@@ -25,21 +25,13 @@ const Signup = () => {
       })
     });
 
-    console.log("Response status:", response.status);
-
-    const text = await response.text();
-    console.log("Raw response:", text);
-
-    const data = text ? JSON.parse(text) : {};
-
     if (response.ok) {
       alert("success");
     } else {
-      alert(data.error || "Signup failed");
+      alert("Signup failed");
     }
   } catch (error) {
     console.error("Signup error:", error);
-    alert("Frontend error: " + error.message);
   }
 };
         

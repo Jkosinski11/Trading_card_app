@@ -7,10 +7,33 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const handleLogin = (e) => {
-        e.preventDefault();
-        // place confirmation of backend logic here
-    };
+    const handleLogin = async (e) => {
+     e.preventDefault();
+    try {
+    const response = await fetch("http://localhost:3001/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      })
+    });
+
+
+
+    if (response.ok) {
+      alert("success");
+      navigate("/card_page");
+    } else {
+      alert("Login failed");
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+  }
+};
+
 
     return (
      <div>
