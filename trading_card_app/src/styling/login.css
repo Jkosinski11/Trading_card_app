@@ -1,0 +1,9 @@
+body{
+background-color: lightskyblue;
+align-items: center;
+}
+
+h1{
+    border: 1px black;
+    padding: 5px;
+}
