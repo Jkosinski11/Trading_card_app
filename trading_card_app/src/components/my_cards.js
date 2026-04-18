@@ -11,7 +11,7 @@ const MyCards = (e) =>{
     };
     return(
     <div>
-    <button onClick={togglePop} alt = "Player Image">Post a Card For Sale</button>
+    <button onClick={togglePop}>Post a Card For Sale</button>
     {seen ? <CreateCard toggle={togglePop} /> : null}
     
     </div>

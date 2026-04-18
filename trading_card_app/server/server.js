@@ -1,12 +1,15 @@
 const express = require("express");
 const pool = require("./db");
 const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
 const bcrypt = require("bcrypt");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("../img_paths", express.static("img_paths"));
 
 app.get("/", async (req , res)=> {
     try{
@@ -72,20 +75,35 @@ app.post("/login", async (req, res) => {
 }
 });
 
-app.post("/create_card", async (req, res) => {
-    const {user_id,img_path, description, price} = req.body;
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "../img_paths/");
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = Date.now() + path.extname(file.originalname);
+    cb(null, uniqueName);
+  }
+});
+
+const upload = multer({ storage: storage });
+
+
+app.post("/create_card", upload.single("image"), async (req, res) => {
+    const {user_id, description, price} = req.body;
     try{
-       const result = await pool.query(
-      "INSERT INTO trading_cards(user_id, img_path, description, price) VALUES ($1, $2, $3, $4) RETURNING user_id, img_path, description, price",
-      [user_id, img_path, description, price]
+    const image_path = req.file ? `../img_paths/${req.file.filename}` : null;
+    const result = await pool.query(
+      "INSERT INTO trading_cards(user_id, image_path, description, price) VALUES ($1, $2, $3, $4) RETURNING user_id, image_path, description, price",
+      [user_id, image_path, description, price]
     );
 
     const trading_card = result.rows[0];
 
     res.status(200).json({
-        message:"Post Created",
+        message:"Card Created",
         post :{
-        img: trading_card.img_path,
+        img: trading_card.image_path,
         description: trading_card.description,
         price: trading_card.price
         }

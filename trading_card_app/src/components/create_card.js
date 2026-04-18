@@ -4,22 +4,20 @@ function CreateCard(props) {
     const [img, setImage] = useState('')
     const [text_desc, setText] = useState('')
     const [price, setPrice] = useState('')
-    
+    const currUser = JSON.parse(localStorage.getItem("currentUser"));
 
     const handleCard = async (e) => {
       e.preventDefault()
       props.toggle()
+      const formData = new FormData();
+      formData.append("image", img);
+      formData.append("description", text_desc);
+      formData.append("price", price); 
+      formData.append("user_id", currUser.id);
       try {
       const response = await fetch("http://localhost:3001/create_card", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        img_path: img,
-        description: text_desc,
-        price: price,
-      })
+      body:formData
     });
     if (response.ok) {
       alert("success");
@@ -38,7 +36,7 @@ function CreateCard(props) {
                 <form onSubmit={handleCard}>
                     <label>
                         Card Image:
-                        <input type="file" accept="image/*" alt = "player-image" value={img} onChange={e => setImage(e.target.value)} />
+                        <input type="file" accept="image/*" alt = "player-image" onChange={e => setImage(e.target.files[0])} />
                     </label>
                     <label>
                         Description:

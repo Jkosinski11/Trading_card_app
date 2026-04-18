@@ -1,6 +1,6 @@
 import '../styling/login.css';
 import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
 
 const Login = () => {
@@ -20,11 +20,12 @@ const Login = () => {
         password: password,
       })
     });
-
-
+    
+    const data = await response.json();
 
     if (response.ok) {
       alert("success");
+      localStorage.setItem("currentUser", JSON.stringify(data.user));
       navigate("/card_page");
     } else {
       alert("Login failed");
