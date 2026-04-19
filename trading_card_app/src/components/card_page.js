@@ -28,7 +28,7 @@ const CardPage = () => {
       <h2>Available Cards</h2>
       <div className="card-grid">
         {cards.map((card) => (
-          <div key={card.id}>
+          <div key={card.card_id}>
             <img
               src={`http://localhost:3001${card.image_path}`}
               alt="Player Card"

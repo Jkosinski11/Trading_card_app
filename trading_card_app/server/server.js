@@ -4,6 +4,7 @@ const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
 const bcrypt = require("bcrypt");
+const fs = require("fs");
 
 const app = express();
 
@@ -76,7 +77,7 @@ app.post("/login", async (req, res) => {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "imageDir");
+    cb(null, imageDir);
   },
   filename: (req, file, cb) => {
     const uniqueName = Date.now() + path.extname(file.originalname);
@@ -112,16 +113,17 @@ app.post("/create_card", upload.single("image"), async (req, res) => {
 });
 
 app.get("/cards", async (req, res) => {
- const {user_id} = req.query;
+  const { user_id } = req.query;
   try {
     let result;
-    if(user_id){
-      result = await pool.query("SELECT * FROM trading_cards WHERE user_id = $1;",
-        [user_id]
-    );
-}else {
-    result = await pool.query("SELECT * FROM trading_cards;");
-}
+    if (user_id) {
+      result = await pool.query(
+        "SELECT * FROM trading_cards WHERE user_id = $1;",
+        [user_id],
+      );
+    } else {
+      result = await pool.query("SELECT * FROM trading_cards;");
+    }
     res.status(200).json({
       cards: result.rows,
     });
@@ -131,8 +133,33 @@ app.get("/cards", async (req, res) => {
   }
 });
 
+app.delete("/cards/:card_id", async (req, res) => {
+  const { card_id } = req.params;
+  try {
+    result = await pool.query("DELETE FROM trading_cards WHERE card_id = $1 RETURNING *;", [
+      card_id
+    ]);
 
+    const card = result.rows[0];
+    
+    if (card.image_path) {
+      const fileName = path.basename(card.image_path);
+      const fullImagePath = path.join(imageDir, fileName);
 
+      fs.unlink(fullImagePath, (err) => {
+        if (err) {
+          console.error("Image delete error:", err);
+        }
+      });
+    }
+    res.status(200).json({
+      card:card
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Delete failed" });
+  }
+});
 
 app.listen(3001, () => {
   console.log("Server running on 3001");

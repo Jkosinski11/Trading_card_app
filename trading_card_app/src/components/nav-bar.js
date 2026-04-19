@@ -25,9 +25,9 @@ function AppNavbar() {
               My Cards
             </Nav.Link>
             <Nav.Link onClick={togglePop} style={{ cursor: "pointer" }}>
-               Post a Card For Sale
-          </Nav.Link>
-          {seen ? <CreateCard toggle={togglePop} /> : null}
+              Post a Card For Sale
+            </Nav.Link>
+            {seen ? <CreateCard toggle={togglePop} /> : null}
           </Nav>
         </Container>
       </Navbar>
