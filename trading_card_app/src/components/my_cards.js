@@ -29,7 +29,9 @@ const MyCards = (e) => {
     fetchCards();
   }, [currUser.id]);
   return (
+    
     <div className = "container mt-4">
+      <h1 className="text-center">My Cards</h1>
       <div className="row">
         {cards.map((card) => (
           <div className= 'col-md-4 mb-4' key={card.card_id}>

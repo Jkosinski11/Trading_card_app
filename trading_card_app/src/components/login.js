@@ -1,5 +1,4 @@
-import "../styling/login.css";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -36,10 +35,14 @@ const Login = () => {
 
   return (
     <div>
-      <h1>CARD SHOP</h1>
-      <h2>Login Page</h2>
+      <h1 className="text-center">CARD SHOP</h1>
+      <h4 className="text-center">Login</h4>
       <form onSubmit={handleLogin}>
+        <div className="form-group">
+        <label for="email">Email address</label>
         <input
+          id = "email"
+          className="form-control"
           type="email"
           placeholder="Enter email"
           value={email}
@@ -47,7 +50,12 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+        </div>
+        <div className="form-group">
+        <label for="password">Password</label>
         <input
+          id = "password"
+          className="form-control"
           type="password"
           placeholder="Enter password"
           value={password}
@@ -55,9 +63,13 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Login</button>
+        </div>
+        <div className="d-flex gap-2">
+        <button className = "btn btn-primary" type="submit">Login</button>
+        <button className = "btn btn-primary" type = "button" onClick={() => navigate("/signup")}>Sign Up</button>
+        </div>
       </form>
-      <button onClick={() => navigate("/signup")}>Sign Up</button>
+      
     </div>
   );
 };

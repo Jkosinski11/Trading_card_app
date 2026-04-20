@@ -8,6 +8,12 @@
   border-radius: 5px;
 }
 
+
+#root {
+  background-color: #ae6cc4;
+  min-height: 100vh;
+}
+
 nav {
   margin-bottom: 20px;
 }

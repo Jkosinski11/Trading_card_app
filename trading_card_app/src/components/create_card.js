@@ -31,37 +31,51 @@ function CreateCard(props) {
 
   return (
     <div className="popup">
-      <div className="popup-inner">
-        <h2>Create Posting</h2>
+      <div className="popup-inner" data-bs-theme="light">
+        <div className="d-flex justify-content-between align-items-center mb-3">
+        <h2 className="fw-bold mb-0 text-center">Create Posting</h2>
+        <button className= "btn-close" onClick={props.toggle}/>
+        </div>
         <form onSubmit={handleCard}>
-          <label>
+        <div className="form-group">
+          <label for="imageFile">
             Card Image:
             <input
+              className="form-control-file"
+              id = "imageFile"
               type="file"
               accept="image/*"
               alt="player-image"
               onChange={(e) => setImage(e.target.files[0])}
             />
           </label>
-          <label>
+          </div>
+          <div className="form-group">
+          <label for = "description">
             Description:
             <input
+              className="form-control"
+              id ="description"
               type="text"
               value={text_desc}
               onChange={(e) => setText(e.target.value)}
             />
           </label>
-          <label>
+          </div>
+          <div className="form-group">
+          <label for = "price">
             Price:
             <input
+              id = "price"
+              className="form-control"
               type="number"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
           </label>
-          <button type="submit">Post Card</button>
+          </div>
+          <button className="btn btn-primary me-2" type="submit">Post Card</button>
         </form>
-        <button onClick={props.toggle}>Close</button>
       </div>
     </div>
   );

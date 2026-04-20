@@ -24,18 +24,21 @@ const CardPage = () => {
 
   return (
     <div className = "container mt-4">
-      <h1 className="title">CARD SHOP</h1>
-      <h2 className="subTitle">Available Cards</h2>
+      <h1 className="text-center">Available Cards</h1>
       <div className="row">
         {cards.map((card) => (
           <div className= 'col-md-4 mb-4' key={card.card_id}>
+            <div className="card h-100">
             <img
               src={`http://localhost:3001${card.image_path}`}
               alt="Player Card"
               className="card-img-top"
             />
-            <p>{card.description}</p>
-            <p>${card.price}</p>
+            <div className = "card-body">
+            <h5 className = "card-title">{card.description}</h5>
+            <p className = "card-text">${card.price}</p>
+          </div>
+          </div>
           </div>
         ))}
       </div>

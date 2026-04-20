@@ -17,7 +17,7 @@ function AppNavbar() {
           <Navbar.Brand as={Link} to="/card_page">
             Card Shop
           </Navbar.Brand>
-          <Nav className="me-auto">
+          <Nav className = "me-auto">
             <Nav.Link as={Link} to="/card_page">
               Cards For Sale
             </Nav.Link>

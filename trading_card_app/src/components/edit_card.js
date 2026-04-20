@@ -39,36 +39,50 @@ function EditCard(props) {
 
   return (
     <div className="popup">
-      <div className="popup-inner">
-        <h2>Edit Posts</h2>
+      <div className="popup-inner" data-bs-theme="light">
+        <div className="d-flex justify-content-between align-items-center mb-3">
+        <h2 className="fw-bold mb-0 text-center">Edit Posting</h2>
+        <button className= "btn-close" onClick={props.toggle}/>
+        </div>
+
         <form onSubmit={handleEdit}>
-          <label>
+        <div className="form-group">
+          <label for="imageFile">
             Card Image:
             <img
+              id = "imageFile"
               src = {`http://localhost:3001${props.card.image_path}`}
               alt = "player-card"
               width = "200"  
             />
           </label>
-          <label>
+         </div>
+        <div className="form-group">
+          <label for = "description">
             Description:
             <input
+              className="form-control"
+              id ="description"
               type="text"
               value={text_desc}
               onChange={(e) => setText(e.target.value)}
             />
           </label>
-          <label>
+          </div>
+          <div className="form-group">
+          <label for = "price">
             Price:
             <input
+              id = "price"
+              className="form-control"
               type="number"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
           </label>
-          <button type="submit">Edit Card</button>
+          </div>
+          <button className="btn btn-primary me-2" type="submit">Edit Card</button>
         </form>
-        <button onClick={props.toggle}>Close</button>
       </div>
     </div>
   );

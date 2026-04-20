@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
-import '../styling/signup.css'
 
+
+// Function to test that password contains a capital letter and number
 const validatePassword = (password) => {
   const error = [];
   if(!/[A-Z]/.test(password)){
@@ -67,19 +68,30 @@ const Signup = () => {
   };
 
   return (
-    <div className="Signup-container">
-      <h2>Signup</h2>
-      <button onClick={() => navigate("/")}>X</button>
+    <div className="form">
+      <div className="d-flex justify-content-between mb-3">
+      <h2 className="fw-bold mb-0 text-center">Signup</h2>
+      <button className= "btn-close" onClick={() => navigate("/")}></button>
+      </div>
       <form onSubmit={handleSignup}>
+      <div className="form-group">
+        <label for="exampleFormControlInput1">Email address</label>
         <input
+          id="exampleFormControlInput1"
+          className="form-control"
           type="email"
-          placeholder="Enter email"
+          placeholder="name@example.com"
           value={email}
           maxLength={30}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+      </div>
+        <div className="form-group">
+        <label for="exampleFormControlInput2">Confirm Email address</label>
         <input
+          id="exampleFormControlInput2"
+          className="form-control"
           type="email"
           placeholder="Confirm email"
           value={emailConfirm}
@@ -87,16 +99,26 @@ const Signup = () => {
           onChange={(e) => setEmailConfirm(e.target.value)}
           required
         />
+        </div>
+        <div className="form-group">
+        <label for="exampleFormControlInput3">Password</label>
         <input
+          id="exampleFormControlInput3"
+          className="form-control"
           type="password"
-          placeholder="Enter password"
+          placeholder="Minimum 8 characters must have uppercase and number"
           value={password}
           maxLength={20}
           minLength={8}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        </div>
+        <div className="form-group">
+        <label for="exampleFormControlInput4">Confirm Password</label>
         <input
+        id="exampleFormControlInput4"
+         className="form-control"
           type="password"
           placeholder="Confirm password"
           value={passwordConfirm}
@@ -105,7 +127,12 @@ const Signup = () => {
           onChange={(e) => setPasswordConfirm(e.target.value)}
           required
         />
+        </div>
+        <div className="form-group">
+        <label for="exampleFormControlInput5">Username</label>
         <input
+          id="exampleFormControlInput5"
+          className="form-control"
           type="text"
           placeholder="Enter Username"
           value={username}
@@ -113,7 +140,8 @@ const Signup = () => {
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-        <button type="submit">Signup</button>
+        </div>
+        <button type="submit" className = "btn btn-primary">Signup</button>
         
       </form>
     </div>
