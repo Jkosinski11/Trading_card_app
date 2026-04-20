@@ -23,16 +23,16 @@ const CardPage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>CARD SHOP</h1>
-      <h2>Available Cards</h2>
-      <div className="card-grid">
+    <div className = "container mt-4">
+      <h1 className="title">CARD SHOP</h1>
+      <h2 className="subTitle">Available Cards</h2>
+      <div className="row">
         {cards.map((card) => (
-          <div key={card.card_id}>
+          <div className= 'col-md-4 mb-4' key={card.card_id}>
             <img
               src={`http://localhost:3001${card.image_path}`}
               alt="Player Card"
-              width="200"
+              className="card-img-top"
             />
             <p>{card.description}</p>
             <p>${card.price}</p>

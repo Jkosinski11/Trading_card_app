@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/login";
-import Signup from "./components/Signup";
+import Signup from "./components/signup";
 import CardPage from "./components/card_page";
 import MyCards from "./components/my_cards";
 import AppNavbar from "./components/nav-bar";

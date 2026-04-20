@@ -21,3 +21,4 @@ async function DeleteCard(currUser, cardId, image_path, cards, setCards) {
 }
 
 export default DeleteCard;
+
