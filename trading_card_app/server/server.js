@@ -161,6 +161,29 @@ app.delete("/cards/:card_id", async (req, res) => {
   }
 });
 
+app.put("/cards/:card_id", async(req, res) => {
+    const{card_id} = req.params;
+    const{ description, price} = req.body;
+
+    try{
+        result = await pool.query("UPDATE trading_cards SET description = $1, price = $2 WHERE card_id = $3 RETURNING *;", [
+      description, price, card_id 
+        ]);
+
+        if (result.rows.length === 0){
+            return res.status(404)
+        }
+
+        res.status(200).json({
+            card: result.rows[0]
+        });
+    }catch(error){
+             res.status(500).json({ error: "Update failed" });
+        }
+    });
+
+
+
 app.listen(3001, () => {
   console.log("Server running on 3001");
 });
